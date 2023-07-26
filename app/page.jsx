@@ -2,14 +2,20 @@
 
 import { useSession } from "next-auth/react";
 
+import Spinner from "~components/Spinner";
+
 const Home = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const renderGreeting = () => (
     <p className="text-center">
       {`Hi, ${session.user.name}!`}
     </p>
   );
+
+  if (status === "loading") {
+    return <Spinner />
+  }
 
   return (
     <section className="w-full flex-center flex-col">

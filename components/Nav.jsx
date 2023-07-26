@@ -4,9 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import Spinner from "~components/Spinner";
 
 const Nav = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -62,6 +63,10 @@ const Nav = () => {
     ))
   );
 
+  const renderSpinner = () => (
+    <Spinner size="sm" />
+  )
+
   return (
     <nav className='flex-between w-full mb-16 bg-[white] mx-auto sm:px-36 px-8 py-2 border-b'>
       <Link href='/' className='flex gap-2 flex-center'>
@@ -76,7 +81,11 @@ const Nav = () => {
       </Link>
 
       <div className='flex relative'>
-        {session?.user ? renderLoggedInMenu() : renderLoggedOutMenu()}
+        {status === "loading"
+          ? renderSpinner()
+          : session?.user
+          ? renderLoggedInMenu()
+          : renderLoggedOutMenu()}
       </div>
     </nav>
   );

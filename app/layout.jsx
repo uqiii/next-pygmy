@@ -1,7 +1,7 @@
-import '@styles/globals.css'
+import '~styles/globals.css'
 
-import Provider from '@components/Provider'
-import Nav from '@components/Nav'
+import Provider from '~components/Provider'
+import Nav from '~components/Nav'
 export const metadata = {
   title: "Pygmy",
   description: "A Website by Uqi"
