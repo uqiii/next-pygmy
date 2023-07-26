@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+
 import Spinner from "~components/Spinner";
 
 const Nav = () => {
@@ -35,7 +36,13 @@ const Nav = () => {
   );
 
   const renderLoggedInMenu = () => (
-    <div className='flex'>
+    <div className='flex items-center'>
+       <Link
+          href='/journals'
+          className='dropdown_link mr-2'
+      >
+        Journal
+      </Link>
       <Image
         src={session?.user.image}
         width={37}
@@ -64,7 +71,7 @@ const Nav = () => {
   );
 
   const renderSpinner = () => (
-    <Spinner size="sm" />
+    <Spinner />
   )
 
   return (
