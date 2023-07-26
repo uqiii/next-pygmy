@@ -5,11 +5,10 @@ import { connectToDB } from "~utils/database";
 export const GET = async (request, { params }) => {
     try {
         await connectToDB()
-        console.log('=== params', params);
 
         const journals = await Journal.find({
-          
-        })
+          owner: params.id
+        }).sort({ createdAt: -1 })
 
         return new Response(JSON.stringify(journals), { status: 200 })
     } catch (error) {
